@@ -1,11 +1,11 @@
 ﻿namespace MortgageCalcClass
 {
-    public class MortgageCalculator
+    public class Calculator
     {
         public LoanDetails LoanDetails { get; }
 
         // constructor
-        public MortgageCalculator(LoanDetails loanDetails)
+        public Calculator(LoanDetails loanDetails)
         {
             LoanDetails = loanDetails;
         }
@@ -28,6 +28,7 @@
             decimal remainingBalance = LoanDetails.LoanAmount; // initial balance is the loan amount
             decimal totalMonthlyPayment = CalculateTotalMonthlyPayment();
             decimal monthlyInterestRate = LoanDetails.AnnualInterestRate / 1200;
+            decimal runningTotalInterest = 0;
 
             // for each month through loan term:
             // calculate interestPayment: Interest Payment = Previous Remaining Balance * Monthly Interest Rate
@@ -38,8 +39,9 @@
             {
                 decimal interestPayment = remainingBalance * monthlyInterestRate;
                 decimal principalPayment = totalMonthlyPayment - interestPayment;
+                runningTotalInterest += interestPayment;
                 remainingBalance -= principalPayment;
-                schedule.Add(new MonthlyPaymentResult(totalMonthlyPayment, interestPayment, principalPayment, remainingBalance));
+                schedule.Add(new MonthlyPaymentResult(month, totalMonthlyPayment, interestPayment, principalPayment, runningTotalInterest, remainingBalance));
             }
             return schedule;
         }

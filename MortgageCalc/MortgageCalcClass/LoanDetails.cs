@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MortgageCalcClass
 {
@@ -18,9 +15,12 @@ namespace MortgageCalcClass
         // constructor using loan amount
         public LoanDetails(decimal loanAmount, int loanTermInMonths, decimal annualInterestRate)
         {
-            ValidateLoanAmount(loanAmount);
-            ValidateLoanTerm(loanTermInMonths);
-            ValidateInterestRate(annualInterestRate);
+            var errors = new List<string>();
+            ValidateLoanAmount(loanAmount, errors);
+            ValidateLoanTerm(loanTermInMonths, errors);
+            ValidateInterestRate(annualInterestRate, errors);
+
+            ThrowIfErrors(errors);
 
             LoanAmount = loanAmount;
             LoanTermInMonths = loanTermInMonths;
@@ -30,10 +30,15 @@ namespace MortgageCalcClass
         // constructor using purchase price and down payment
         public LoanDetails(decimal purchasePrice, decimal downPayment, int loanTermInMonths, decimal annualInterestRate)
         {
-            ValidatePurchasePrice(purchasePrice);
-            ValidateDownPayment(downPayment, purchasePrice);
-            ValidateLoanTerm(loanTermInMonths);
-            ValidateInterestRate(annualInterestRate);
+            Console.WriteLine($"Debug: PurchasePrice={purchasePrice}, DownPayment={downPayment}, LoanTermInMonths={loanTermInMonths}, AnnualInterestRate={annualInterestRate}");
+
+            var errors = new List<string>();
+            ValidatePurchasePrice(purchasePrice, errors);
+            ValidateDownPayment(downPayment, purchasePrice, errors);
+            ValidateLoanTerm(loanTermInMonths, errors);
+            ValidateInterestRate(annualInterestRate, errors);
+
+            ThrowIfErrors(errors);
 
             PurchasePrice = purchasePrice;
             DownPayment = downPayment;
@@ -45,10 +50,13 @@ namespace MortgageCalcClass
         // New constructor using purchase price and down payment as a percentage
         public LoanDetails(decimal purchasePrice, int loanTermInMonths, decimal annualInterestRate, decimal downPaymentPercentage)
         {
-            ValidatePurchasePrice(purchasePrice);
-            ValidateLoanTerm(loanTermInMonths);
-            ValidateInterestRate(annualInterestRate);
-            ValidateDownPaymentPercentage(downPaymentPercentage);
+            var errors = new List<string>();
+            ValidatePurchasePrice(purchasePrice, errors);
+            ValidateLoanTerm(loanTermInMonths, errors);
+            ValidateInterestRate(annualInterestRate, errors);
+            ValidateDownPaymentPercentage(downPaymentPercentage, errors);
+
+            ThrowIfErrors(errors);
 
             PurchasePrice = purchasePrice;
             DownPayment = CalculateDownPaymentFromPercentage(purchasePrice, downPaymentPercentage);
@@ -69,40 +77,46 @@ namespace MortgageCalcClass
             return purchasePrice * (percentage / 100);
         }
 
-        private void ValidateLoanAmount(decimal amount)
+        private void ValidateLoanAmount(decimal amount, List<string> errors)
         {
             if (amount <= 0)
-                throw new ArgumentException("Loan amount must be greater than zero.");
+                errors.Add("Loan amount must be greater than zero.");
         }
 
-        private void ValidatePurchasePrice(decimal price)
+        private void ValidatePurchasePrice(decimal price, List<string> errors)
         {
             if (price <= 0)
-                throw new ArgumentException("Purchase price must be greater than zero.");
+                errors.Add("Purchase price must be greater than zero.");
         }
 
-        private void ValidateDownPayment(decimal downPayment, decimal purchasePrice)
+        private void ValidateDownPayment(decimal downPayment, decimal purchasePrice, List<string> errors)
         {
             if (downPayment < 0 || downPayment >= purchasePrice)
-                throw new ArgumentException("Down payment must be non-negative and less than the purchase price.");
+                errors.Add("Down payment must be non-negative and less than the purchase price.");
         }
 
-        private void ValidateDownPaymentPercentage(decimal percentage)
+        private void ValidateDownPaymentPercentage(decimal percentage, List<string> errors)
         {
             if (percentage < 0 || percentage > 100)
-                throw new ArgumentException("Down payment percentage must be between 0 and 100.");
+                errors.Add("Down payment percentage must be between 0 and 100.");
         }
 
-        private void ValidateLoanTerm(int term)
+        private void ValidateLoanTerm(int term, List<string> errors)
         {
             if (term <= 0)
-                throw new ArgumentException("Loan term must be greater than zero.");
+                errors.Add("Loan term must be greater than zero.");
         }
 
-        private void ValidateInterestRate(decimal rate)
+        private void ValidateInterestRate(decimal rate, List<string> errors)
         {
             if (rate < 0 || rate > 100)
-                throw new ArgumentException("Interest rate must be between 0 and 100.");
+                errors.Add("Interest rate must be between 0 and 100.");
+        }
+
+        private void ThrowIfErrors(List<string> errors)
+        {
+            if (errors.Count > 0)
+                throw new ArgumentException(string.Join("\n", errors));
         }
     }
 }
