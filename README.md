@@ -25,7 +25,7 @@ Mortgage calculator is a simple tool that allows you to calculate the monthly pa
 The formula used to calculate the monthly mortgage payment is:
 
 ```
-Monthly Payment = Loan Amount * (rate/1200) / (1 - (1 + rate/1200)^-Number of Months)
+Monthly Payment = Loan Amount * (rate/1200) / (1 - (1 + rate/1200)^ - Number of Months)
 ```
 
 ### Explanation of Formula Components
