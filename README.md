@@ -10,10 +10,10 @@ Mortgage calculator is a simple tool that allows you to calculate the monthly pa
 
 - This class holds the user inputs and provide methods for validation and manipulation of the data.
 
-### `MortgageCalculator` handles calculations
+### `Calculator` handles mortgage calculations
 
 - performs calculations to determine the total monthly payment, interest payment, principal payment, and remaining balance for each month.
-- For each month in the loan term, `MortgageCalculator` creates an instance of `MonthlyPaymentResult`, passing the calculated values to its constructor.
+- For each month in the loan term, `Calculator` creates an instance of `MonthlyPaymentResult`, passing the calculated values to its constructor.
 - returns a list of `MonthlyPaymentResult` objects, each representing the payment details for a single month. This list constitutes the amortization schedule, showing how the loan balance decreases over time.
 
 ### `MonthlyPaymentResult` encapsulates the result of calculations
