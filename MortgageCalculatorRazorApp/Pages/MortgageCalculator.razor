@@ -1,0 +1,117 @@
+﻿@page "/"
+@using MortgageCalcClass
+
+<h3>Mortgage Calculator</h3>
+
+<div class="form-group">
+    <label for="purchasePrice">Purchase Price:</label>
+    <input id="purchasePrice" type="number" class="form-control" @bind="purchasePrice" step="0.01" />
+</div>
+<div class="form-group">
+    <label for="downPayment">Down Payment:</label>
+    <input id="downPayment" type="number" class="form-control" @bind="downPayment" step="0.01" />
+</div>
+<div class="form-group">
+    <label for="loanTermYears">Loan Term (Years):</label>
+    <input id="loanTermYears" type="number" class="form-control" @bind="loanTermYears" />
+</div>
+<div class="form-group">
+    <label for="interestRate">Interest Rate (%):</label>
+    <input id="interestRate" type="number" class="form-control" @bind="interestRate" step="0.01" />
+</div>
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>
+}
+
+@if (result != null)
+{
+    <h4>Results:</h4>
+    <p>Total Monthly Payment: @result.TotalMonthlyPayment.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</p>
+    <p>Total Interest Paid: @result.TotalInterestPaid.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</p>
+
+    <h4>Amortization Schedule</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Payment Amount</th>
+                <th>Principal Payment</th>
+                <th>Interest Payment</th>
+                <th>Total Interest</th>
+                <th>Remaining Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var payment in result.AmortizationSchedule)
+            {
+                <tr>
+                    <td>@payment.Month</td>
+                    <td>@payment.TotalMonthlyPayment.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</td>
+                    <td>@payment.PrincipalPayment.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</td>
+                    <td>@payment.InterestPayment.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</td>
+                    <td>@payment.RunningTotalInterest.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</td>
+                    <td>@payment.RemainingBalance.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private decimal purchasePrice;
+    private decimal downPayment;
+    private int loanTermYears;
+    private decimal interestRate;
+    private CalculationResult? result;
+    private string errorMessage;
+
+    private void Calculate()
+    {
+        try
+        {
+            errorMessage = string.Empty; // Clear any previous error message
+
+            // Convert loan term from years to months
+            int loanTermInMonths = loanTermYears * 12;
+
+            // Create LoanDetails and validate
+            var loanDetails = new LoanDetails(purchasePrice, downPayment, loanTermInMonths, interestRate);
+
+            var calculator = new Calculator(loanDetails);
+
+            var monthlyPayment = calculator.CalculateTotalMonthlyPayment();
+            var schedule = calculator.CalculateAmortizationSchedule();
+
+            result = new CalculationResult
+                {
+                    TotalMonthlyPayment = Math.Round(monthlyPayment, 2),
+                    TotalInterestPaid = Math.Round(schedule.Sum(payment => payment.InterestPayment), 2),
+                    AmortizationSchedule = schedule
+                };
+        }
+        catch (ArgumentException ex)
+        {
+            // Handle exceptions, such as invalid input
+            errorMessage = ex.Message; // Display error message on screen
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Handle any other exceptions
+            errorMessage = "An unexpected error occurred.";
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+
+    private class CalculationResult
+    {
+        public decimal TotalMonthlyPayment { get; set; }
+        public decimal TotalInterestPaid { get; set; }
+        public List<MonthlyPaymentResult> AmortizationSchedule { get; set; }
+    }
+}

@@ -5,14 +5,14 @@ namespace NUnitMortgageCalcTests
     public class MortgageCalculatorTests
     {
         private LoanDetails _loanDetailsSimple;
-        private MortgageCalculator _calculatorSimple;
+        private Calculator _calculatorSimple;
 
         [SetUp]
         public void Setup()
         {
             // Initialize the LoanDetails and MortgageCalculator for testing
             _loanDetailsSimple = new LoanDetails(300000m, 360, 3.5m); // $300,000 loan, 30 years, 3.5% interest
-            _calculatorSimple = new MortgageCalculator(_loanDetailsSimple);
+            _calculatorSimple = new Calculator(_loanDetailsSimple);
         }
 
         [Test]
@@ -81,14 +81,14 @@ namespace NUnitMortgageCalcTests
     public class MortgageCalculatorWithDownPaymentTests
     {
         private LoanDetails _loanDetailsWithDownPayment;
-        private MortgageCalculator _calculator;
+        private Calculator _calculator;
 
         [SetUp]
         public void Setup()
         {
             // Initialize the LoanDetails and MortgageCalculator for testing
             _loanDetailsWithDownPayment = new LoanDetails(300000m, 60000m, 360, 3.5m); // $300,000 loan, 60,000 down payment, 30 years, 3.5% interest
-            _calculator = new MortgageCalculator(_loanDetailsWithDownPayment);
+            _calculator = new Calculator(_loanDetailsWithDownPayment);
         }
 
         [Test]
