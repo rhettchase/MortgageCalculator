@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MortgageCalcClass", "MortgageCalcClass\MortgageCalcClass.csproj", "{71D2F41E-AEA7-41CD-A6E7-FF773DE09A64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MortgageCalcClass", ".\MortgageCalcClass\MortgageCalcClass.csproj", "{71D2F41E-AEA7-41CD-A6E7-FF773DE09A64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitMortgageCalcTests", "NUnitMortgageCalcTests\NUnitMortgageCalcTests.csproj", "{40362A03-C537-428B-8086-02DA36D57119}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitMortgageCalcTests", ".\NUnitMortgageCalcTests\NUnitMortgageCalcTests.csproj", "{40362A03-C537-428B-8086-02DA36D57119}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MortgageCalculatorRazorApp", "..\MortgageCalculatorRazorApp\MortgageCalculatorRazorApp.csproj", "{01DA19A4-1419-4192-88B9-F2F1B22D875F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MortgageCalculatorRazorApp", ".\MortgageCalculatorRazorApp\MortgageCalculatorRazorApp.csproj", "{01DA19A4-1419-4192-88B9-F2F1B22D875F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectreConsoleApp", "SpectreConsoleApp\SpectreConsoleApp.csproj", "{D2A40D3E-504D-4363-B333-F0377F30D280}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectreConsoleApp", ".\SpectreConsoleApp\SpectreConsoleApp.csproj", "{D2A40D3E-504D-4363-B333-F0377F30D280}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "SpectreConsoleApp": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "commandLineArgs": "--interactive"
+    }
+  }
+}
