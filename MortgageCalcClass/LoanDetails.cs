@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace MortgageCalcClass
 {
@@ -28,6 +29,7 @@ namespace MortgageCalcClass
         }
 
         // constructor using purchase price and down payment
+        [JsonConstructor]
         public LoanDetails(decimal purchasePrice, decimal downPayment, int loanTermInMonths, decimal annualInterestRate)
         {
             // Console.WriteLine($"Debug: PurchasePrice={purchasePrice}, DownPayment={downPayment}, LoanTermInMonths={loanTermInMonths}, AnnualInterestRate={annualInterestRate}");

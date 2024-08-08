@@ -3,9 +3,21 @@
     "SpectreConsoleApp": {
       "commandName": "Project"
     },
-    "Profile 1": {
+    "Interactive": {
       "commandName": "Executable",
-      "commandLineArgs": "--interactive"
+      "executablePath": "C:\\Users\\rchas\\dev\\mssa\\MortgageCalculator\\SpectreConsoleApp\\bin\\Debug\\net8.0\\SpectreConsoleApp.exe",
+      "commandLineArgs": "--interactive",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Batch": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\rchas\\dev\\mssa\\MortgageCalculator\\SpectreConsoleApp\\bin\\Debug\\net8.0\\SpectreConsoleApp.exe",
+       "commandLineArgs": "--batch \"[{\\\"PurchasePrice\\\":250000,\\\"DownPayment\\\":50000,\\\"LoanTermInMonths\\\":360,\\\"AnnualInterestRate\\\":3.5},{\\\"PurchasePrice\\\":300000,\\\"DownPayment\\\":60000,\\\"LoanTermInMonths\\\":180,\\\"AnnualInterestRate\\\":3.0}]\"",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
