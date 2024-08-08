@@ -31,13 +31,17 @@ public static class Program
             AnsiConsole.MarkupLine($"[bold yellow]Total Interest Paid:[/] [bold green]{schedule.Sum(payment => payment.InterestPayment):C}[/]");
 
             // Create and display the amortization table
-            var table = new Table().RoundedBorder();
+            var table = new Table()
+               .Border(TableBorder.Rounded)
+               .BorderColor(Color.SpringGreen4);
+
             table.AddColumn(new TableColumn("Month").Centered());
             table.AddColumn(new TableColumn("Payment Amount").RightAligned());
             table.AddColumn(new TableColumn("Principal Payment").RightAligned());
             table.AddColumn(new TableColumn("Interest Payment").RightAligned());
             table.AddColumn(new TableColumn("Total Interest").RightAligned());
             table.AddColumn(new TableColumn("Remaining Balance").RightAligned());
+
 
             foreach (var payment in schedule)
             {
