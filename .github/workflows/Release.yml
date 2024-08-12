@@ -14,24 +14,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Verify commit exists in origin/main
-      run: |
-        git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-        git branch --remote --contains | grep origin/main
-
     - name: Set VERSION variable from tag
       run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
 
     - name: Build
-      run: dotnet build MortgageCalculator/MortgageCalcClass/MortgageCalcCLass.csproj --configuration Release /p:Version=${VERSION}
+      run: dotnet build MortgageCalcClass/MortgageCalcClass.csproj --configuration Release /p:Version=${VERSION}
 
     - name: Test
-      run: dotnet test MortgageCalculator/MortgageCalcClass/MortgageCalcCLass.csproj --configuration Release /p:Version=${VERSION} --no-build
+      run: dotnet test MortgageCalcClass/MortgageCalcClass.csproj --configuration Release /p:Version=${VERSION} --no-build
 
     - name: Pack
-      run: dotnet pack MortgageCalculator/MortgageCalcClass/MortgageCalcCLass.csproj --configuration Release /p:Version=${VERSION} --no-build --output . -p:PackageID=RhettMortgageCalcClassLibrary
+      run: dotnet pack MortgageCalcClass/MortgageCalcClass.csproj --configuration Release /p:Version=${VERSION} --no-build --output . -p:PackageID=RhettMortgageCalcClassLibrary
 
     - name: Push
       run: dotnet nuget push RhettMortgageCalcClassLibrary.${VERSION}.nupkg --source https://nuget.pkg.github.com/rhettchase/index.json --api-key ${{ secrets.NUGET_PAT }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.NUGET_PAT }}
