@@ -5,11 +5,25 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>RhettMortgageCalcClassLibrary</PackageId>
-    <Title>Rhett's Mortgage Cal Class Library</Title>
+    <Title>Rhett's Mortgage Calc Class Library</Title>
     <Company>Rhett</Company>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/rhettchase/MortgageCalculator/tree/main</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <BaseOutputPath>C:\Users\rchas\dev\mssa\MortgageCalculator\MortgageCalcClass\bin</BaseOutputPath>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
